@@ -1,0 +1,27 @@
+---
+name: Skip duplicate actions
+
+permissions:
+  actions: write
+  contents: read
+
+on:  # yamllint disable-line rule:truthy
+  workflow_call:
+    outputs:
+      should_skip:
+        description: "Whether the next step should be skipped"
+        value: ${{ jobs.check.outputs.should_skip }}
+
+jobs:
+  check:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.1
+        with:
+          cancel_others: true
+          concurrent_skipping: "same_content"
+          skip_after_successful_duplicate: true
