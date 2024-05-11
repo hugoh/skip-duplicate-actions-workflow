@@ -1,0 +1,41 @@
+---
+name: super-linter
+
+permissions: {}
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - master
+      - "renovate/**"
+  pull_request:
+
+jobs:
+  pre_job:
+    uses: ./.github/workflows/skip-duplicate-actions.yml
+    permissions:
+      actions: write
+      contents: read
+
+  lint:
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    name: super-linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter@v6
+        env:
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
