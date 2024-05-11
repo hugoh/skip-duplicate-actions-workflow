@@ -1,6 +1,6 @@
 # Re-usable [skip-duplicate-actions](https://github.com/marketplace/actions/skip-duplicate-actions) workflow
 
-This repo is purely set up to reuse a skip-duplicate-actions workflow:
+This repository is purely set up to reuse a skip-duplicate-actions workflow:
 
 ```yaml
 ---
