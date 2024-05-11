@@ -8,6 +8,7 @@ name: Example
 
 jobs:
   pre_job:
+    # yamllint disable-line rule:line-length
     uses: hugoh/skip-duplicate-actions-workflow/.github/workflows/skip-duplicate-actions.yml@master
     permissions:
       actions: write
