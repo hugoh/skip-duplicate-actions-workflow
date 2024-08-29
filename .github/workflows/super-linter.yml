@@ -35,7 +35,7 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
       - name: Lint Code Base
-        uses: github/super-linter@v6
+        uses: github/super-linter@v7
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
